@@ -1,4 +1,5 @@
 using CleanArch.Infra.Data;
+using CleanArch.Infra.Ioc;
 using CleanArch.Mvc.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,7 @@ namespace CleanArch.Mvc
                 options.UseSqlServer(
                     Configuration.GetConnectionString("UniversityDbConnection")));
             services.AddRazorPages();
+            RegisterUser(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +71,10 @@ namespace CleanArch.Mvc
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+        private static void RegisterUser(IServiceCollection services)
+        {
+            DependecyContainer.RegisterServices(services);
         }
     }
 }
