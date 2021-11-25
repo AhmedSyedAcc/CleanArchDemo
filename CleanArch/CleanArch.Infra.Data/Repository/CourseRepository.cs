@@ -17,6 +17,21 @@ namespace CleanArch.Infra.Data.Repository
             _udc = udc;
         }
 
+        public IEnumerable<Courses> DeleteCourse(int id)
+        {
+            return _udc.Course;
+        }
+
+        public IEnumerable<Courses> EditCourse()
+        {
+            return _udc.Course;
+        }
+
+        public IEnumerable<Courses> AddCourse()
+        {
+            return _udc.Course;
+        }
+
         public IEnumerable<Courses> GetCourse()
         {
             return _udc.Course;

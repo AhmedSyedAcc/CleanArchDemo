@@ -10,5 +10,8 @@ namespace CleanArch.Domain.Repository
     public interface ICourseRepo
     {
         IEnumerable<Courses> GetCourse();
+        IEnumerable<Courses> EditCourse();
+        IEnumerable<Courses> AddCourse();
+        IEnumerable<Courses> DeleteCourse(int id);
     }
 }

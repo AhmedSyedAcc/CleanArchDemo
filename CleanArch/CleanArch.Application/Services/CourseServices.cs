@@ -17,6 +17,31 @@ namespace CleanArch.Application.Services
         {
             _courseRepo = courseRepo;
         }
+
+        public CourseViewModel DeleteCourse(int id)
+        {
+            return new CourseViewModel()
+            {
+                Courses = _courseRepo.DeleteCourse(id)
+            };
+        }
+
+        public CourseViewModel EditCourse()
+        {
+            return new CourseViewModel()
+            {
+                Courses = _courseRepo.EditCourse()
+            };
+        }
+
+        public CourseViewModel AddCourse()
+        {
+            return new CourseViewModel()
+            {
+                Courses = _courseRepo.AddCourse()
+            };
+        }
+
         public CourseViewModel GetCourse()
         {
             return new CourseViewModel()
