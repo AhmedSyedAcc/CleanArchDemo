@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArch.Infra.Data.Repository
 {
-    public class CourseRepository : ICourseRepo
+    public class CourseRepository : ICourseRepository
     {
         private UniversityDbContext _udc;
 
@@ -17,24 +18,35 @@ namespace CleanArch.Infra.Data.Repository
             _udc = udc;
         }
 
-        public IEnumerable<Courses> DeleteCourse(int id)
+        public Course Get(int id)
         {
-            return _udc.Course;
+            return _udc.Course.Single(x => x.Id == id);
         }
 
-        public IEnumerable<Courses> EditCourse()
+        public ICollection<Course> GetAll()
         {
-            return _udc.Course;
+            return _udc.Course.ToList();
         }
 
-        public IEnumerable<Courses> AddCourse()
+        public void Edit(Course course)
         {
-            return _udc.Course;
+            _udc.Update(course);
         }
 
-        public IEnumerable<Courses> GetCourse()
+        public void Add(Course course)
         {
-            return _udc.Course;
+            _udc.Course.Add(course);
+        }
+
+        public void Delete(int id)
+        {
+            Course course = _udc.Course.Find(id);
+            _udc.Course.Remove(course);
+        }
+
+        public void Save()
+        {
+            _udc.SaveChanges();
         }
     }
 }

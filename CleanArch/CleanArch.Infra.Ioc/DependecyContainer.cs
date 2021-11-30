@@ -16,10 +16,10 @@ namespace CleanArch.Infra.Ioc
         public static void RegisterServices(IServiceCollection services)
         {
             //Application Layer
-            services.AddScoped<ICourseServices, CourseServices>();
+            services.AddScoped<ICourseService, CourseServices>();
 
             //Infra.Data Layer
-            services.AddScoped<ICourseRepo, CourseRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
         }
     }
 }

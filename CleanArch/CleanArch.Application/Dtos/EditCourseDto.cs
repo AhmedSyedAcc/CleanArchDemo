@@ -1,14 +1,11 @@
-﻿using System;
+﻿using CleanArch.Domain.Models;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CleanArch.Domain.Models
+namespace CleanArch.Application.Interfaces
 {
-    public class Courses
+    public class EditCourseDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }

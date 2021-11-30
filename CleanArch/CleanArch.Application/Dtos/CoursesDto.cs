@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.ViewModels
 {
-    public class CourseViewModel
+    public class CoursesDto
     {
-        public IEnumerable<Courses> Courses { get; set; }
+        public IEnumerable<Course> Courses { get; set; }
     }
 }

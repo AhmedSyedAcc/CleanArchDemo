@@ -1,5 +1,6 @@
 ﻿using CleanArch.Application.Interfaces;
 using CleanArch.Application.ViewModels;
+using CleanArch.Domain.Models;
 using CleanArch.Domain.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,44 +10,48 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.Services
 {
-    public class CourseServices : ICourseServices
+    public class CourseServices : ICourseService
     {
-        private ICourseRepo _courseRepo;
+        private ICourseRepository _courseRepo;
 
-        public CourseServices(ICourseRepo courseRepo)
+        public CourseServices(ICourseRepository courseRepo)
         {
             _courseRepo = courseRepo;
         }
 
-        public CourseViewModel DeleteCourse(int id)
+        public void AddCourse(AddCourseDto dto)
         {
-            return new CourseViewModel()
+            var course = Course.Create(dto.Name, dto.Description, dto.ImageUrl);
+            _courseRepo.Add(course);
+            _courseRepo.Save();
+        }
+
+        public void Delete(int id)
+        {
+            _courseRepo.Delete(id);
+        }
+
+        public void Edit(int id, EditCourseDto dto)
+        {
+             _ = _courseRepo.Get(id);
+            var course = Course.Edit(dto.Name, dto.Description, dto.ImageUrl);
+            _courseRepo.Edit(course);
+            _courseRepo.Save();
+        }
+
+        public CoursesDto Get(int id)
+        {
+            return new CoursesDto()
             {
-                Courses = _courseRepo.DeleteCourse(id)
+                Courses = (IEnumerable<Domain.Models.Course>)_courseRepo.Get(id)
             };
         }
 
-        public CourseViewModel EditCourse()
+        public CoursesDto GetAll()
         {
-            return new CourseViewModel()
+            return new CoursesDto()
             {
-                Courses = _courseRepo.EditCourse()
-            };
-        }
-
-        public CourseViewModel AddCourse()
-        {
-            return new CourseViewModel()
-            {
-                Courses = _courseRepo.AddCourse()
-            };
-        }
-
-        public CourseViewModel GetCourse()
-        {
-            return new CourseViewModel()
-            {
-                Courses = _courseRepo.GetCourse()
+                Courses = _courseRepo.GetAll()
             };
         }
     }

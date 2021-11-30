@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.Interfaces
 {
-    public interface ICourseServices
+    public interface ICourseService
     {
-        CourseViewModel GetCourse();
-        CourseViewModel EditCourse();
-        CourseViewModel DeleteCourse(int id);
-        CourseViewModel AddCourse();
+        CoursesDto Get(int id);
+        CoursesDto GetAll();
+        void Edit(int id, EditCourseDto dto);
+        void Delete(int id);
+        void AddCourse(AddCourseDto dto);
     }
 }

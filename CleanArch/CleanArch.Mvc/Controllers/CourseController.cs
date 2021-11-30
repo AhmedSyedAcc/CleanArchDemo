@@ -14,60 +14,72 @@ namespace CleanArch.Mvc.Controllers
 {
     public class CourseController : Controller
     {
-        private ICourseServices _courseServices;
-        private UniversityDbContext universityDbContext;
+        private ICourseService _courseServices;
 
-        public CourseController(ICourseServices courseServices)
+        public CourseController(ICourseService courseServices)
         {
             _courseServices = courseServices;
         }
 
         public IActionResult Index()
         {
-            CourseViewModel model = _courseServices.GetCourse();
+            CoursesDto model = _courseServices.GetAll();
+            return View(model);
+        }
+        public IActionResult Get(int id)
+        {
+            CoursesDto model = _courseServices.Get(id);
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public IActionResult AddCourse()
         {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Create(Courses model)
+       [HttpPost]
+       public IActionResult AddCourse(AddCourseDto dto)
         {
-            universityDbContext.Course.Add(model);
-            universityDbContext.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                _courseServices.AddCourse(dto);
+                return RedirectToAction("Index", "Course");
+            }
             return View();
         }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            
-            var data = universityDbContext.Course.Where(x => x.Id == id).FirstOrDefault();
-            return View(data);
+            CoursesDto course = _courseServices.Get(id);
+            return View(course);
         }
-        [HttpPost]
-        public IActionResult Edit(Courses Model)
-        {
-            var data = universityDbContext.Course.Where(x => x.Id == Model.Id).FirstOrDefault();
-            if (data != null)
-            {
-                data.ImageUrl = Model.ImageUrl;
-                data.Name = Model.Name;
-                data.Description = Model.Description;
-                universityDbContext.SaveChanges();
-            }
 
-            return RedirectToAction("index");
+        [HttpPost]
+        public IActionResult Edit(int id, EditCourseDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                _courseServices.Edit(id, dto);
+                return RedirectToAction("Index", "Course");
+            }
+            else
+                return View(dto);
         }
+
+        [HttpGet]
+        public IActionResult DeleteCourse(int id)
+        {
+            CoursesDto course = _courseServices.Get(id);
+            return View(course);
+        }
+
+        [HttpPost]
         public IActionResult Delete(int id)
         {
-            var data = universityDbContext.Course.Where(x => x.Id == id).FirstOrDefault();
-            universityDbContext.Course.Remove(data);
-            universityDbContext.SaveChanges();
-            return RedirectToAction("index");
+            _courseServices.Delete(id);
+            return RedirectToAction("Index", "Course");
         }
     }
 }
