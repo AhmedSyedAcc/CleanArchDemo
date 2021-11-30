@@ -38,6 +38,7 @@ namespace CleanArch.Mvc
             services.AddDbContext<UniversityDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("UniversityDbConnection")));
+            
             services.AddRazorPages();
             RegisterUser(services);
         }

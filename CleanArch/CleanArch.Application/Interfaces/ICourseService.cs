@@ -1,4 +1,5 @@
-﻿using CleanArch.Application.ViewModels;
+﻿using CleanArch.Application.Dtos;
+using CleanArch.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CleanArch.Application.Interfaces
 {
     public interface ICourseService
     {
-        CoursesDto Get(int id);
+        CourseDto Get(int id);
         CoursesDto GetAll();
         void Edit(int id, EditCourseDto dto);
         void Delete(int id);

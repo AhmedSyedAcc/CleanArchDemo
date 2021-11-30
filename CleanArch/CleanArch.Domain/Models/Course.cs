@@ -12,6 +12,7 @@ namespace CleanArch.Domain.Models
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public string ImageUrl { get; protected set; }
+        public Semester Semester { get; set; }
 
         protected Course()
         {
@@ -30,10 +31,11 @@ namespace CleanArch.Domain.Models
             Console.WriteLine("Create Object");
             return new Course(name, description, imageUrl);
         }
-        public static Course Edit(string name, string description, string imageUrl)
+        public void Edit(string name, string description, string imageUrl)
         {
-            Console.WriteLine("Edit Course");
-            return new Course( name, description, imageUrl );
+            this.Name = name;
+            this.Description = description;
+            this.ImageUrl = imageUrl;
         }
     }
 }

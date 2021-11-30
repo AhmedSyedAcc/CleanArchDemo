@@ -1,4 +1,5 @@
-﻿using CleanArch.Application.Interfaces;
+﻿using CleanArch.Application.Dtos;
+using CleanArch.Application.Interfaces;
 using CleanArch.Application.ViewModels;
 using CleanArch.Domain.Models;
 using CleanArch.Infra.Data;
@@ -28,7 +29,7 @@ namespace CleanArch.Mvc.Controllers
         }
         public IActionResult Get(int id)
         {
-            CoursesDto model = _courseServices.Get(id);
+            CourseDto model = _courseServices.Get(id);
             return View(model);
         }
 
@@ -52,7 +53,7 @@ namespace CleanArch.Mvc.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            CoursesDto course = _courseServices.Get(id);
+            CourseDto course = _courseServices.Get(id);
             return View(course);
         }
 
@@ -71,7 +72,7 @@ namespace CleanArch.Mvc.Controllers
         [HttpGet]
         public IActionResult DeleteCourse(int id)
         {
-            CoursesDto course = _courseServices.Get(id);
+            CourseDto course = _courseServices.Get(id);
             return View(course);
         }
 

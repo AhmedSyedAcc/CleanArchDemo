@@ -1,4 +1,5 @@
-﻿using CleanArch.Application.Interfaces;
+﻿using CleanArch.Application.Dtos;
+using CleanArch.Application.Interfaces;
 using CleanArch.Application.ViewModels;
 using CleanArch.Domain.Models;
 using CleanArch.Domain.Repository;
@@ -33,17 +34,17 @@ namespace CleanArch.Application.Services
 
         public void Edit(int id, EditCourseDto dto)
         {
-             _ = _courseRepo.Get(id);
-            var course = Course.Edit(dto.Name, dto.Description, dto.ImageUrl);
+            var course =  _courseRepo.Get(id);
+            course.Edit(dto.Name, dto.Description, dto.ImageUrl);
             _courseRepo.Edit(course);
             _courseRepo.Save();
         }
 
-        public CoursesDto Get(int id)
+        public CourseDto Get(int id)
         {
-            return new CoursesDto()
+            return new CourseDto()
             {
-                Courses = (IEnumerable<Domain.Models.Course>)_courseRepo.Get(id)
+                Course = _courseRepo.Get(id)
             };
         }
 
@@ -54,5 +55,6 @@ namespace CleanArch.Application.Services
                 Courses = _courseRepo.GetAll()
             };
         }
+
     }
 }
