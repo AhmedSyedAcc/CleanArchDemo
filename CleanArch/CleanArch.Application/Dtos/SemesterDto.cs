@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.Dtos
 {
-    public class CourseDto
+    public class SemesterDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImageUrl { get; set; }
-        public int SemesteId { get; set; }
+        public string SemesterName { get; set; }
+        public ICollection<CourseDto> Courses { get; set; }
+        public SemesterDto()
+        {
+            Courses = new List<CourseDto>();
+        }
     }
 }

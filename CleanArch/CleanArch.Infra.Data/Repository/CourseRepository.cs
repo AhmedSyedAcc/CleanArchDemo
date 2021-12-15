@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CleanArch.Infra.Data.Repository
 {
     public class CourseRepository : ICourseRepository
-    {
+    { 
         private UniversityDbContext _udc;
 
         public CourseRepository(UniversityDbContext udc)
@@ -20,28 +20,28 @@ namespace CleanArch.Infra.Data.Repository
 
         public Course Get(int id)
         {
-            return _udc.Course.Single(x => x.Id == id);
+            return _udc.Courses.Single(x => x.Id == id);
         }
 
         public ICollection<Course> GetAll()
         {
-            return _udc.Course.ToList();
+            return _udc.Courses.ToList();
         }
 
         public void Edit(Course course)
         {
-            _udc.Update(course);
+            _udc.Courses.Update(course);
         }
 
         public void Add(Course course)
         {
-            _udc.Course.Add(course);
+            _udc.Courses.Add(course);
         }
 
         public void Delete(int id)
         {
-            Course course = _udc.Course.Find(id);
-            _udc.Course.Remove(course);
+            Course course = _udc.Courses.Find(id);
+            _udc.Courses.Remove(course);
         }
 
         public void Save()

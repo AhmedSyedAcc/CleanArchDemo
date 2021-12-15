@@ -1,17 +1,17 @@
-﻿using CleanArch.Application.Dtos;
-using CleanArch.Domain.Models;
+﻿using CleanArch.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArch.Application.ViewModels
+namespace CleanArch.Application.Dtos
 {
-    public class CoursesDto
+    public class EditSemesterDto
     {
+        public string SemesterName { get; set; }
         public ICollection<CourseDto> Courses { get; set; }
-        public CoursesDto()
+        public EditSemesterDto()
         {
             Courses = new List<CourseDto>();
         }

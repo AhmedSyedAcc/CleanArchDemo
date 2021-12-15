@@ -10,18 +10,39 @@ namespace CleanArch.Domain.Models
     {
         public int Id { get; protected set; }
         public string SemesterName { get; protected set; }
-        public ICollection<Course> Courses { get; protected set; }
+        private readonly List<Course> _courses;
+        public IEnumerable<Course> Courses => _courses.AsReadOnly();
+
+        //internal void AddCourses(IList<Course> courses)
+        //{
+        //    foreach (var course in courses)
+        //    {
+        //        if (!Courses.Any(x => x.Id == course.Id))
+        //        {
+        //            Courses.Add(course);
+        //        }
+        //    }
+        //}
 
         protected Semester()
         {
-
+            _courses = new List<Course>();
         }
 
-        protected Semester(int id, string semesterName, ICollection<Course> courses)
+        protected Semester(string semesterName)
+            : this()
         {
-            Id = id;
             SemesterName = semesterName;
-            Courses = courses;
         }
+
+        public static Semester Create( string semesterName)
+        {
+            return new Semester(semesterName);
+        }
+        public void Edit(string semesterName)
+        {
+            this.SemesterName = semesterName;
+        }
+        
     }
 }

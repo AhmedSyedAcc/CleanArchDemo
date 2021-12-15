@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 
 namespace CleanArch.Mvc.Controllers
 {
@@ -24,63 +24,54 @@ namespace CleanArch.Mvc.Controllers
 
         public IActionResult Index()
         {
-            CoursesDto model = _courseServices.GetAll();
-            return View(model);
+            var model = _courseServices.GetAll();
+            return Ok(model);
         }
         public IActionResult Get(int id)
         {
-            CourseDto model = _courseServices.Get(id);
-            return View(model);
+            var model = _courseServices.Get(id);
+            return Ok(model);
         }
 
         [HttpGet]
         public IActionResult AddCourse()
         {
-            return View();
+            return Ok();
         }
 
        [HttpPost]
-       public IActionResult AddCourse(AddCourseDto dto)
+       public IActionResult AddCourse([FromBody]AddCourseDto dto)
         {
             if (ModelState.IsValid)
             {
                 _courseServices.AddCourse(dto);
-                return RedirectToAction("Index", "Course");
             }
-            return View();
+            return Ok();
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            CourseDto course = _courseServices.Get(id);
-            return View(course);
+            var course = _courseServices.Get(id);
+            return Ok(course);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, EditCourseDto dto)
+        public IActionResult Edit([FromBody] EditCourseDto dto)
         {
             if (ModelState.IsValid)
             {
-                _courseServices.Edit(id, dto);
-                return RedirectToAction("Index", "Course");
+                _courseServices.Edit(dto);
+                return Ok();
             }
-            else
-                return View(dto);
+            return BadRequest();
         }
 
-        [HttpGet]
-        public IActionResult DeleteCourse(int id)
-        {
-            CourseDto course = _courseServices.Get(id);
-            return View(course);
-        }
-
-        [HttpPost]
+        [HttpDelete]
         public IActionResult Delete(int id)
         {
             _courseServices.Delete(id);
-            return RedirectToAction("Index", "Course");
+            return Ok();
         }
     }
 }

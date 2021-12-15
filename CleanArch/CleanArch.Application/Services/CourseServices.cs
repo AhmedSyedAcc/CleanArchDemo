@@ -22,7 +22,7 @@ namespace CleanArch.Application.Services
 
         public void AddCourse(AddCourseDto dto)
         {
-            var course = Course.Create(dto.Name, dto.Description, dto.ImageUrl);
+            var course = Course.Create(dto.Name, dto.Description, dto.ImageUrl, dto.SemesterId);
             _courseRepo.Add(course);
             _courseRepo.Save();
         }
@@ -32,28 +32,45 @@ namespace CleanArch.Application.Services
             _courseRepo.Delete(id);
         }
 
-        public void Edit(int id, EditCourseDto dto)
+        public void Edit(EditCourseDto dto)
         {
-            var course =  _courseRepo.Get(id);
+            var course =  _courseRepo.Get(dto.Id);
             course.Edit(dto.Name, dto.Description, dto.ImageUrl);
+            //course.ChangeSemester(id);
             _courseRepo.Edit(course);
             _courseRepo.Save();
         }
 
         public CourseDto Get(int id)
         {
-            return new CourseDto()
-            {
-                Course = _courseRepo.Get(id)
-            };
+            var course = _courseRepo.Get(id);
+            var courseDto = new CourseDto();
+            courseDto.Id = course.Id;
+            courseDto.Name = course.Name;
+            courseDto.Description = course.Description;
+            courseDto.ImageUrl = course.ImageUrl;
+            courseDto.SemesteId = course.SemesterId;
+            return courseDto;
         }
 
         public CoursesDto GetAll()
         {
-            return new CoursesDto()
+            var courses = _courseRepo.GetAll();
+            var coursesDto = new CoursesDto();
+            var courseDtos = new List<CourseDto>();
+            foreach (var course in courses)
             {
-                Courses = _courseRepo.GetAll()
-            };
+                var courseDto = new CourseDto()
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Description = course.Description,
+                    ImageUrl = course.ImageUrl
+                };
+                courseDtos.Add(courseDto);
+            }
+            coursesDto.Courses = courseDtos;
+            return coursesDto;
         }
 
     }

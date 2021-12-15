@@ -15,7 +15,21 @@ namespace CleanArch.Infra.Data
         {
         }
 
-        public DbSet<Course> Course { get; set; }
-        public DbSet<Semester> Semester { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Semester>()
+                .Metadata.FindNavigation(nameof(Semester.Courses))
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
+        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Course>()
+        //        .HasRequired<Semester>(b => b.Semester)
+        //        .WithMany(a => a.Courses)
+        //        .HasForeignKey<int>(b => b.SemesterId);
+        //}
     }
 }

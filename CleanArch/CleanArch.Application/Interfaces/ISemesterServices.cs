@@ -1,5 +1,4 @@
 ﻿using CleanArch.Application.Dtos;
-using CleanArch.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.Interfaces
 {
-    public interface ICourseService
+    public interface ISemesterServices
     {
-        CourseDto Get(int id);
-        CoursesDto GetAll();
-        void Edit(EditCourseDto dto);
+        SemesterDto Get(int id);
+        SemestersDto GetAll();
+        void Edit(int id, EditSemesterDto dto);
         void Delete(int id);
-        void AddCourse(AddCourseDto dto);
+        void AddSemester(AddSemesterDto dto);
     }
 }
